@@ -9,6 +9,6 @@ a {
     color: #00B7FF;
 }
 
-a.no-underline {
-    text-decoration: none;
+.racers-result-photo {
+    max-width: 100%;
 }
