@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -32,5 +31,5 @@ jobs:
       with:
         app-name: 'jan-cerny-memorial'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6bb7093168fd4ff0b430307f48ec4e4c }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_52e2b637430b477898994913fabecf60 }}
         package: .
