@@ -1,14 +1,24 @@
-const JSONdb = require('simple-json-db');
-const db = new JSONdb('public/results.json');
+const fs = require('fs');
+const filePath = 'public/results.json';
 
-const maxIdKey = '_maxId';
-var maxId = db.get(maxIdKey) || 0;
+const loadData = () => {
+    try {
+        const dataAsJson = fs.readFileSync(filePath, { encoding: 'utf8'});
+        return JSON.parse(dataAsJson);
+    } catch (err) {
+        return null;
+    }
+}
+
+const saveData = (data) => {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 4));
+}
 
 const repo = {
     addRacer: (racer) => {
-        maxId += 1;
-        db.set(maxId.toString(), racer);
-        db.set(maxIdKey, maxId);
+        let data = loadData() || { results: [] };
+        data.results.push(racer);
+        saveData(data);
     }
 }
 
