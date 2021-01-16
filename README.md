@@ -1,7 +1,7 @@
 Zprovoznění webu:
 
 1. K lokálnímu spuštění je třeba mít instalován [node.js](https://nodejs.org/).
-2. `npm install` v root adresáři
+2. `npm install` v root adresáři repository
 3. `npm start`
 4. Web bude k dispozici na portu 3000 (pokud není systémovou proměnnou PORT nastaveno jinak, viz bin/www)
 
