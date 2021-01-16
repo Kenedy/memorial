@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memoriál - Registrace</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <h1>Registrace</h1>
+    <form action="uploadResult" method="POST" enctype="multipart/form-data">
+        <p>
+            <label for="name">Jméno:</label>
+            <input type="text" id="name" name="name">
+        </p>
+
+        <p>
+            <label for="photo">Fotografie:</label>
+            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg">
+        </p>
+
+        <p>
+            <label for="comment">Komentář:</label>
+            <input type="text" id="comment" name="comment">
+        </p>
+        <p>
+            <input type="submit" value="Odeslat">
+        </p>
+    </form>
+</body>
+</html>
