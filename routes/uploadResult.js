@@ -1,24 +1,28 @@
-var express = require('express');
-var router = express.Router();
-var multer = require('multer');
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const repo = require('../repository');
+const fs = require('fs');
+const path = require('path');
+const nanoid = require('nanoid').nanoid;
 
 const imageFilter = function(req, file, cb) {
     cb(null, !!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/));
 };
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images/photos');
     },
     filename: function (req, file, cb) {
-        console.log(JSON.stringify(file));
-        var fileName = Date.now() + '-' + file.originalname;
-        cb(null, fileName)
+        const ext = path.extname(file.originalname);
+        const newFileName = nanoid() + ext;
+        req.fileName = newFileName;
+        cb(null, req.fileName)
     }
 });
 
-
-var photos = multer({ storage: storage, fileFilter: imageFilter });
+const photos = multer({ storage: storage, fileFilter: imageFilter });
 
 router.post('/uploadResult',
     photos.single('photo'),
@@ -30,15 +34,18 @@ router.post('/uploadResult',
             return res.send('Vyberte fotku ve formátu JPG nebo PNG');
         }
 
-        // TODO: Implement
+        if (!req.body.name) {
+            fs.rm(req.file.filename);
+            return res.status(400).send('Jméno musí být vyplněno');
+        }
 
-        const file = req.file;
-        console.log(file.filename);
-        console.log(`name: ${req.body.name}`);
-        console.log(`comment: ${req.body.comment}`);
+        repo.addRacer({
+            name: req.body.name,
+            comment: req.body.comment,
+            fileName: req.fileName
+        });
 
-        //res.send();
-        res.send('upload ok');
+        return res.redirect('racers.html');
     });
 
 module.exports = router;
