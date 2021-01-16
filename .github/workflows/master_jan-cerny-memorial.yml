@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'jan-cerny-memorial'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a4f1ecaf58d942b69fb7c5a2c8dea4e3 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b5b6871010e844b59044ee93f70d2a92 }}
         package: .
