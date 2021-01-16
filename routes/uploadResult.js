@@ -5,6 +5,11 @@ const repo = require('../repository');
 const fs = require('fs');
 const path = require('path');
 const nanoid = require('nanoid').nanoid;
+const photosDir = 'public/images/photos';
+
+if (!fs.existsSync(photosDir)) {
+    fs.mkdirSync(photosDir, { recursive: true });
+}
 
 const imageFilter = function(req, file, cb) {
     cb(null, !!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/));
@@ -12,7 +17,7 @@ const imageFilter = function(req, file, cb) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/images/photos');
+        cb(null, photosDir);
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname);

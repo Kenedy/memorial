@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e0856f2d-012b-4388-888c-12149f0399e9/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/jan-cerny-memorial",
+    "appService.deploySubpath": "."
+}
