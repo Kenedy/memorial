@@ -10,7 +10,7 @@
 <body>
     <a href="/">zpět</a>
     <h1>Registrace výsledků</h1>
-    <form action="uploadResult" method="POST" enctype="multipart/form-data">
+    <form name="result" action="uploadResult" method="POST" enctype="multipart/form-data" data-bind="submit: onSubmit">
         <p>
             <label for="name">Jméno:</label>
             <input type="text" id="name" name="name" data-bind="textInput: name">
@@ -18,7 +18,7 @@
 
         <p>
             <label for="photo">Fotografie:</label>
-            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: updatePhotoUrl }">
+            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: onPhotoChange }">
         </p>
 
         <p>
@@ -43,7 +43,7 @@
             comment: ko.observable(),
             photoUrl: ko.observable()
         };
-        model.updatePhotoUrl = function(data, event) {
+        model.onPhotoChange = function(data, event) {
             if (event) {
                 if (model.photoUrl()) {
                     URL.revokeObjectURL(model.photoUrl());
@@ -53,6 +53,11 @@
                 } else {
                     model.photoUrl(undefined);
                 }
+            }
+        };
+        model.onSubmit = function(data, event) {
+            if (confirm('Opravdu chcete formulář odeslat? Zadaná data už později nebude možné změnit.')) {
+                document.forms['result'].submit();
             }
         };
         ko.applyBindings(model);
