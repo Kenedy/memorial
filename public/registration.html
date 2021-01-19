@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memoriál - Registrace</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
@@ -12,21 +13,49 @@
     <form action="uploadResult" method="POST" enctype="multipart/form-data">
         <p>
             <label for="name">Jméno:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" data-bind="textInput: name">
         </p>
 
         <p>
             <label for="photo">Fotografie:</label>
-            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg">
+            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: updatePhotoUrl }">
         </p>
 
         <p>
             <label for="comment">Komentář:</label>
-            <input type="text" id="comment" name="comment">
+            <input type="text" id="comment" name="comment" data-bind="textInput: comment">
         </p>
         <p>
             <input type="submit" value="Odeslat">
         </p>
     </form>
+
+    <p>Náhled:</p>
+    <h2 data-bind="text: name"></h2>
+    <p data-bind="text: comment"></p>
+    <!-- ko if: photoUrl -->
+    <img class="racers-result-photo" data-bind="attr: { src: photoUrl }">
+    <!-- /ko -->
+
+    <script>
+        var model = {
+            name: ko.observable(),
+            comment: ko.observable(),
+            photoUrl: ko.observable()
+        };
+        model.updatePhotoUrl = function(data, event) {
+            if (event) {
+                if (model.photoUrl()) {
+                    URL.revokeObjectURL(model.photoUrl());
+                }
+                if (event.target && event.target.files.length > 0) {
+                    model.photoUrl(URL.createObjectURL(event.target.files[0]));
+                } else {
+                    model.photoUrl(undefined);
+                }
+            }
+        };
+        ko.applyBindings(model);
+    </script>
 </body>
 </html>
