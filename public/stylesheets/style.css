@@ -54,7 +54,7 @@ input[type=submit]:hover {
 
 .racers-result-photo {
   height: 300px; /* TODO suport responsive layout? */
-  object-fit: fit;
+  object-fit: contain;
 }
 
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
