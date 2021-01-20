@@ -8,27 +8,57 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <a href="/">zpět</a>
+
+  <div class="top">
+    <h1>Memoriál prof. Černého</h1>
+  </div>
+  <div class="w3-bar w3-black">
+    <a href="/" class="w3-bar-item w3-button" >zpět</a>
+    <a href="racers.html"class="w3-bar-item w3-button"  >Závodníci</a>
+  </div
+
     <h1>Registrace výsledků</h1>
     <form name="result" action="uploadResult" method="POST" enctype="multipart/form-data" data-bind="submit: onSubmit">
-        <p>
-            <label for="name">Jméno:</label>
-            <input type="text" id="name" name="name" data-bind="textInput: name">
-        </p>
+      <div class="row">
+        <div class="col-25">
+          <label for="name">Jméno:</label>
+        </div>
+        <div class="col-75">
 
-        <p>
-            <label for="photo">Fotografie:</label>
-            <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: onPhotoChange }">
-        </p>
 
-        <p>
-            <label for="comment">Komentář:</label>
-            <input type="text" id="comment" name="comment" data-bind="textInput: comment">
-        </p>
-        <p>
-            <input type="submit" value="Odeslat">
-        </p>
-    </form>
+
+           <input type="text" id="name" name="name" data-bind="textInput: name">
+
+        </div>
+      </div>
+
+      <div class="row">       
+        <div class="col-25">
+          <label for="photo">Fotografie:</label>
+        </div>
+        <div class="col-75">
+
+
+
+         <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: onPhotoChange }">
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">        
+          <label for="comment">Komentář:</label>
+        </div>
+        <div class="col-75">
+             <input type="text" id="comment" name="comment" data-bind="textInput: comment">
+
+        </div>
+      </div>
+
+      <div class="row">
+          <input type="submit" value="Odeslat">
+      </div>
+</form>
 
     <p>Náhled:</p>
     <h2 data-bind="text: name"></h2>
@@ -36,6 +66,8 @@
     <!-- ko if: photoUrl -->
     <img class="racers-result-photo" data-bind="attr: { src: photoUrl }">
     <!-- /ko -->
+
+
 
     <script>
         var model = {

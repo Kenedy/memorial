@@ -10,10 +10,17 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <a href="/">zpět</a>
-    <h1>Závodníci</h1>
+  <div class="top">
+    <h1>Memoriál prof. Černého</h1>
+  </div>
+  <div class="w3-bar w3-black">
+    <a href="/" class="w3-bar-item w3-button" >zpět</a>
+    <a href="registration.html" class="w3-bar-item w3-button"  >Registrace výsledků</a>
+  </div
+
+    <h2>Závodníci</h2>
     <div id="racers" data-bind="foreach: records">
-        <h2 data-bind="text: name"></h2>
+        <h3 data-bind="text: name"></h3>
         <p data-bind="text: comment"></p>
         <img class="racers-result-photo" data-bind="attr: { src: 'images/photos/' + fileName }">
     </div>
