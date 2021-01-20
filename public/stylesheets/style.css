@@ -52,6 +52,10 @@ input[type=submit]:hover {
   clear: both;
 }
 
+.racers-result-photo {
+  height: 300px; /* TODO suport responsive layout? */
+  object-fit: fit;
+}
 
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
