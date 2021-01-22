@@ -1,4 +1,7 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/e0856f2d-012b-4388-888c-12149f0399e9/resourceGroups/webApps/providers/Microsoft.Web/sites/jan-cerny-memorial",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "html.format.wrapLineLength": 0
 }
