@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memoriál - Registrace</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+    <script src="javascripts/registration.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-
     <div class="top">
         <h1>Memoriál prof. Černého</h1>
     </div>
@@ -19,29 +21,29 @@
         <a href="racers.html" class="w3-bar-item w3-button">Závodníci</a>
     </div <h1>Registrace výsledků</h1>
     <form name="result" action="uploadResult" method="POST" enctype="multipart/form-data" data-bind="submit: onSubmit">
+        <div class="row" data-bind="visible: showNameRequired">
+            <div class="col-25"></div>
+            <div class="col-75 validation-error">Jméno je třeba zadat</div>
+        </div>
         <div class="row">
             <div class="col-25">
                 <label for="name">Jméno:</label>
             </div>
             <div class="col-75">
-
-
-
-                <input type="text" id="name" name="name" data-bind="textInput: name">
-
+                <input type="text" id="name" name="name" data-bind="textInput: name, event: { input: onNameChange }">
             </div>
         </div>
 
+        <div class="row" data-bind="visible: showPhotoRequired">
+            <div class="col-25"></div>
+            <div class="col-75 validation-error">Bez fotky to nepůjde</div>
+        </div>
         <div class="row">
             <div class="col-25">
                 <label for="photo">Fotografie:</label>
             </div>
             <div class="col-75">
-
-
-
                 <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" data-bind="event: { input: onPhotoChange }">
-
             </div>
         </div>
 
@@ -51,7 +53,6 @@
             </div>
             <div class="col-75">
                 <textarea type="text" id="comment" name="comment" rows="4" data-bind="textInput: comment"></textarea>
-
             </div>
         </div>
 
@@ -60,40 +61,12 @@
         </div>
     </form>
 
-    <p>Náhled:</p>
+    <p data-bind="visible: hasModelData">Náhled:</p>
     <h2 data-bind="text: name"></h2>
     <p data-bind="text: comment"></p>
     <!-- ko if: photoUrl -->
     <img class="racers-result-photo" data-bind="attr: { src: photoUrl }">
     <!-- /ko -->
-
-
-
-    <script>
-        var model = {
-            name: ko.observable(),
-            comment: ko.observable(),
-            photoUrl: ko.observable()
-        };
-        model.onPhotoChange = function (data, event) {
-            if (event) {
-                if (model.photoUrl()) {
-                    URL.revokeObjectURL(model.photoUrl());
-                }
-                if (event.target && event.target.files.length > 0) {
-                    model.photoUrl(URL.createObjectURL(event.target.files[0]));
-                } else {
-                    model.photoUrl(undefined);
-                }
-            }
-        };
-        model.onSubmit = function (data, event) {
-            if (confirm('Opravdu chcete formulář odeslat? Zadaná data už později nebude možné změnit.')) {
-                document.forms['result'].submit();
-            }
-        };
-        ko.applyBindings(model);
-    </script>
 </body>
 
 </html>
