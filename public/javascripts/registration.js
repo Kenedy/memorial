@@ -6,7 +6,6 @@ $(document).ready(function () {
         name: ko.observable(),
         nameTouched: ko.observable(false),
         date: ko.observable(moment(new Date()).format('YYYY-MM-DD')),
-        dateTouched: ko.observable(false),
         comment: ko.observable(),
         photoUrl: ko.observable(),
         showPhotoRequired: ko.observable(false)
@@ -20,16 +19,13 @@ $(document).ready(function () {
     model.showNameRequired = ko.pureComputed(function () {
         return model.nameTouched() && !model.isNameValid();
     });
-    model.onDateChange = function () {
-        model.dateTouched(true);
-    };
     model.dateFormatted = ko.pureComputed(function () {
         return model.isDateValid()
             ? moment(model.date()).format('D. M. YYYY')
             : null;
     });
     model.showDateRequired = ko.pureComputed(function () {
-        return model.dateTouched() && !model.date();
+        return !model.date();
     });
     model.isDateValid = function () {
         var dtStr = model.date();
@@ -50,7 +46,7 @@ $(document).ready(function () {
         return true;
     };
     model.showDateInvalid = ko.pureComputed(function () {
-        if (model.dateTouched() && model.date()) {
+        if (model.date()) {
             return !model.isDateValid();
         } else {
             return false;   // showDateRequired will catch this
@@ -82,7 +78,6 @@ $(document).ready(function () {
             document.forms.result.submit();
         } else {
             model.nameTouched(true);
-            model.dateTouched(true);
             if (!model.isPhotoValid()) {
                 model.showPhotoRequired(true);
             }
