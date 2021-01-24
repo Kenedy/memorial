@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
     <script src="javascripts/registration.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
@@ -32,6 +33,23 @@
             </div>
             <div class="col-75">
                 <input type="text" id="name" name="name" data-bind="textInput: name, event: { input: onNameChange }">
+            </div>
+        </div>
+
+        <div class="row" data-bind="visible: showDateRequired">
+            <div class="col-25"></div>
+            <div class="col-75 validation-error">Datum je povinné</div>
+        </div>
+        <div class="row" data-bind="visible: showDateInvalid">
+            <div class="col-25"></div>
+            <div class="col-75 validation-error">Datum není v pořádku. Nemůže být před 10.1.2020 a nemůže být ani v budoucnu.</div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="date">Datum:</label>
+            </div>
+            <div class="col-75">
+                <input type="date" id="date" name="date" data-bind="value: date, event: { input: onDateChange }">
             </div>
         </div>
 
@@ -62,12 +80,16 @@
         </div>
     </form>
 
-    <p data-bind="visible: hasModelData">Náhled:</p>
+    <!-- ko if: hasModelData -->
+    <p >Náhled:</p>
     <h2 data-bind="text: name"></h2>
+    <p data-bind="visible: !!dateFormatted(), text: dateFormatted"></p>
     <p data-bind="text: comment"></p>
     <!-- ko if: photoUrl -->
     <img class="racers-result-photo" data-bind="attr: { src: photoUrl }">
     <!-- /ko -->
+    <!-- /ko -->
+
 </body>
 
 </html>
