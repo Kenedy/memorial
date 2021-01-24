@@ -5,7 +5,7 @@ $(document).ready(function () {
     var model = {
         name: ko.observable(),
         nameTouched: ko.observable(false),
-        date: ko.observable(),
+        date: ko.observable(moment(new Date()).format('YYYY-MM-DD')),
         dateTouched: ko.observable(false),
         comment: ko.observable(),
         photoUrl: ko.observable(),
