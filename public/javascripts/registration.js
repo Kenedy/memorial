@@ -1,6 +1,6 @@
 'use strict';
 $(document).ready(function () {
-    var minDateTick = Date.parse('2020-01-10');
+    var minDateTick = Date.parse('2021-01-10');
 
     var model = {
         name: ko.observable(),

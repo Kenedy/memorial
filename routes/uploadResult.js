@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const nanoid = require('nanoid').nanoid;
 const photosDir = 'public/images/photos';
-const minDateTick = Date.parse('2010-01-10');
+const minDateTick = Date.parse('2021-01-10');
 
 if (!fs.existsSync(photosDir)) {
     fs.mkdirSync(photosDir, { recursive: true });
