@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const nanoid = require('nanoid').nanoid;
 const photosDir = 'public/images/photos';
+const minDateTick = Date.parse('2021-01-10');
 
 if (!fs.existsSync(photosDir)) {
     fs.mkdirSync(photosDir, { recursive: true });
@@ -44,8 +45,19 @@ router.post('/uploadResult',
             return res.status(400).send('Jméno musí být vyplněno');
         }
 
+        if (!req.body.date) {
+            return res.status(400).send('Datum musí být vyplněno');
+        } else {
+            var dt = Date.parse(req.body.date);
+            if (!(dt > minDateTick && dt < new Date().valueOf())) {
+                return res.status(400).send('Datum není v platném časovém rozmezí');
+            }
+        }
+
         repo.addRacer({
             name: req.body.name,
+            date: req.body.date,
+            year: 2021,
             comment: req.body.comment,
             fileName: req.fileName
         });
